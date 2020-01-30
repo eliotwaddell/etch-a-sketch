@@ -11,8 +11,36 @@ const container = document.querySelector('#container');
 var div = document.createElement('div');
 div.style.cssText = 'background-color: white; width: 1.5625vw; height: 1.5625vw';
 var randomColorMode = false;
-var gradientMode = true;
-var brightness = 100;
+var gradientMode = false;
+var opacity = 1;
+var colorCheck = document.querySelector('#color');
+var gradientCheck = document.querySelector('#gradient');
+
+colorCheck.addEventListener("change", function(e)
+{
+    if(e.target.checked)
+    {
+        randomColorMode = true;
+    }
+    else
+    {
+        randomColorMode = false;
+    }
+});
+
+gradientCheck.addEventListener("change", function(e)
+{
+    if(e.target.checked)
+    {
+        gradientMode = true;
+    }
+    else
+    {
+        gradientMode = false;
+        opacity = 1;
+    }
+});
+
 
 var i;
 for(i=0; i<1024;i++)
@@ -20,51 +48,53 @@ for(i=0; i<1024;i++)
     tempDiv = div.cloneNode();
     tempDiv.addEventListener("mouseenter", function(e)
     {
+        var pixelColor = 'white';
         if(randomColorMode)
         {
             pixelColor = getRandomColor();
         }
-        else
+        else if(!gradientMode)
         {
-            var pixelColor = 'black';
+            pixelColor = 'black';
         }
-        e.target.style.backgroundColor = pixelColor;
         if(gradientMode)
         {
-            e.target.style.filter = "brightness("+brightness.toString()+"%)";
-            if(brightness==0)
+            if(opacity<=0)
             {
-                brightness=100;
+                opacity = 1;
             }
             else
             {
-                brightness-=10;
+                opacity-=.1;
             }
         }
+        e.target.style.backgroundColor = pixelColor;
+        e.target.style.opacity = opacity.toString();
     });
     tempDiv.addEventListener("mouseexit", function(e)
     {
+        var pixelColor = 'white';
         if(randomColorMode)
         {
             pixelColor = getRandomColor();
         }
-        else
+        else if(!gradientMode)
         {
-            var pixelColor = 'black';
+            pixelColor = 'black';
         }
-        e.target.style.backgroundColor = pixelColor;
         if(gradientMode)
         {
-            e.target.style.filter = "brightness("+brightness.toString()+"%)";
-            if(brightness==100)
+            if(opacity<=0)
             {
-                brightness=0;
+                opacity = 1;
             }
             else
             {
-                brightness+=10;
+                opacity-=.1;
             }
         }
+        e.target.style.backgroundColor = pixelColor;
+        e.target.style.opacity = opacity.toString();
     });
     container.appendChild(tempDiv);
 }
@@ -85,52 +115,56 @@ button.addEventListener("click", function(e)
         tempDiv = div.cloneNode();
         tempDiv.addEventListener("mouseenter", function(e)
         {
+            var pixelColor = 'white';
             if(randomColorMode)
         {
             pixelColor = getRandomColor();
         }
-        else
+        else if(!gradientMode)
         {
-            var pixelColor = 'black';
+            pixelColor = 'black';
         }
-        e.target.style.backgroundColor = pixelColor;
         if(gradientMode)
         {
-            e.target.style.filter = "brightness("+brightness.toString()+"%)";
-            if(brightness==100)
+            if(opacity<=0)
             {
-                brightness=0;
+                opacity = 1;
             }
             else
             {
-                brightness+=10;
+                opacity-=.1;
             }
         }
+        e.target.style.backgroundColor = pixelColor;
+        e.target.style.opacity = opacity.toString();
         });
         tempDiv.addEventListener("mouseexit", function(e)
         {
+            var pixelColor = 'white';
             if(randomColorMode)
-        {
-            pixelColor = getRandomColor();
-        }
-        else
-        {
-            var pixelColor = 'black';
-        }
-        e.target.style.backgroundColor = pixelColor;
+            {
+                pixelColor = getRandomColor();
+            }
+            else if(!gradientMode)
+            {
+                pixelColor = 'black';
+            }
         if(gradientMode)
         {
-            e.target.style.filter = "brightness("+brightness.toString()+"%)";
-            if(brightness==100)
+            if(opacity<=0)
             {
-                brightness=0;
+                opacity = 1;
             }
             else
             {
-                brightness+=10;
+                opacity-=.1;
             }
         }
+        e.target.style.backgroundColor = pixelColor;
+        e.target.styleopacity = opacity.toString();
         });
         container.appendChild(tempDiv);
     }
 });
+
+
